@@ -9,7 +9,7 @@ export default {
       power: payload.power,
     };
 
-    const url = `http://127.0.0.1:8000/api/pv-installations`;
+    const url = `http://192.168.1.14:8000/api/pv-installations`;
 
     const response = await axios.post(url, data,{
       headers: {
@@ -41,7 +41,7 @@ export default {
   },
   async loadInstallation(context) {
     const token = localStorage.getItem("token");
-    let url = `http://127.0.0.1:8000/api/pv-installations`;
+    let url = `http://192.168.1.14:8000/api/pv-installations`;
 
     await axios
       .get(url, {

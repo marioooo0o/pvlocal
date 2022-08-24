@@ -20,7 +20,7 @@ class CreateCounterReadingsTable extends Migration
             $table->float('active_energy_consumed');
             $table->float('reactive_energy_consumed');
             $table->float('energy_to_recover');
-            $table->float('balance');
+            $table->float('balance', 10, 2);
             $table->timestamps();
             $table->foreign('p_v_installation_id')
                 ->references('id')

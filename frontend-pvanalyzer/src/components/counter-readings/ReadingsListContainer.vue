@@ -20,7 +20,7 @@
         <td>{{ data.balance }} kWh</td>
       </tr>
     </table>
-    <span v-else>Nie posiadasz żadnych odczytów.</span>
+    <span v-else class="no-data-message">Nie posiadasz żadnych odczytów.</span>
     <base-blue-button link to="/add-reading" colorButton="button-green"
       >Dodaj nowy odczyt</base-blue-button
     >
@@ -45,11 +45,14 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 25px;
+  min-width: 50%;
 }
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 .header span {
   color: green;
@@ -68,5 +71,10 @@ th {
 }
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+.no-data-message{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
 }
 </style>

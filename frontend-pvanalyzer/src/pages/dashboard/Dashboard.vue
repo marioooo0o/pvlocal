@@ -4,9 +4,9 @@
     v-if="!isLoading"
     :style="{ marginLeft: marginLeftComputed }"
   >
-    <div v-if="hasReadings">
-    <line-chart-card :actualBalance="actualBalance"></line-chart-card>
-    <bar-chart-card :balance="balance"></bar-chart-card>
+    <div v-if="hasReadings" class="charts">
+      <line-chart-card :actualBalance="actualBalance"></line-chart-card>
+      <bar-chart-card :balance="balance"></bar-chart-card>
     </div>
     <last-readings-table
       :tableData="tableData"
@@ -73,12 +73,10 @@ export default {
       return this.getLastReadingsInMonths();
     },
     balance() {
-      return 0;
-      // return this.monthlyData[this.monthlyData.length - 1].balance;
+      return this.monthlyData[this.monthlyData.length - 1].balance;
     },
     actualBalance() {
-      // return this.allReadings[this.allReadings.length - 1].balance;
-      return 0;
+      return this.monthlyData[this.monthlyData.length - 1].balance;
     },
     tableData() {
       return this.allReadings.slice(-5);
@@ -280,11 +278,23 @@ export default {
   opacity: 0;
 }
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+  display: flex; 
+  justify-content: center; 
+  gap: 25px; 
+  flex-wrap: wrap; 
   padding: 1rem 18px;
+}
+.charts{
+  display: flex;
+  gap: 25px;
+}
+@media screen and (max-width: 650px) {
+    .container{
+      display: flex;
+      flex-direction: column;
+    }
+    .charts{
+      flex-direction: column;
+    }
 }
 </style>

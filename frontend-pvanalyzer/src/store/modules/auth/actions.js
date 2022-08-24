@@ -5,7 +5,7 @@ export default {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    const url = `http://127.0.0.1:8000/api/users/${userId}`;
+    const url = `http://192.168.1.14:8000/api/users/${userId}`;
     let data = {
       name: payload.name,
       email: payload.email,
@@ -48,7 +48,7 @@ export default {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    let url = `http://127.0.0.1:8000/api/users/${userId}/change-password`;
+    let url = `http://192.168.1.14:8000/api/users/${userId}/change-password`;
 
     let data = {
       password: payload.password,
@@ -71,7 +71,7 @@ export default {
       });
   },
   async register(context, payload) {
-    const url = "http://127.0.0.1:8000/api/register";
+    const url = "http://192.168.1.14:8000/api/register";
 
     const data = {
       name: payload.name,
@@ -114,7 +114,7 @@ export default {
     return response;
   },
   async login(context, payload) {
-    const url = "http://127.0.0.1:8000/api/login";
+    const url = "http://192.168.1.14:8000/api/login";
 
     const data = {
       email: payload.email,

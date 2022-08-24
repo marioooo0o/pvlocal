@@ -12,7 +12,7 @@
             name="power"
             v-model="powerInstallation"
             @blur="v$.powerInstallation.$touch"
-          /><span>kWh</span>
+          /><span>kW</span>
         </div>
       </div>
       <div class="form-control">

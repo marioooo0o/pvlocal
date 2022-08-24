@@ -4,15 +4,6 @@
         <h1>Ostatnie odczyty</h1>
         <div class="right-block">
           <router-link to="/notFound">Zobacz raport</router-link>
-          <!-- <a href="">Zobacz raport</a> -->
-          <!-- <span v-if="isSaved" style="color: green">
-          <i class="fa-solid fa-arrow-up" />
-          <span class="value"> {{ actualBalance }} kWh</span>
-        </span>
-        <span v-else style="color: red">
-          <i class="fa-solid fa-arrow-down" />
-          <span class="value"> {{ actualBalance }} kWh</span>
-        </span> -->
         </div>
       </div>
       <LineChart />
@@ -40,6 +31,7 @@ export default {
   flex-direction: column;
   min-width: 445px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 25px;
 
 }
 .header {

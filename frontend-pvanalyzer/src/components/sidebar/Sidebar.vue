@@ -45,7 +45,7 @@ export default {
     },
     hasInstallation(){
       return this.$store.getters["pVInstallation/hasInstallation"];
-    }
+    },
   },
   methods: {
     logout() {
@@ -106,5 +106,10 @@ a {
 .rotate-180 {
   transform: rotate(180deg);
   transition: 0.2s linear;
+}
+  @media screen and (max-width: 650px) {
+    .sidebar{
+      max-width: 38px;
+    }
 }
 </style>

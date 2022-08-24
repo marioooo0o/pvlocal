@@ -18,13 +18,16 @@ use App\Http\Controllers\PVInstallationCounterReadingController;
 */
 
 //Public routes
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware(['cors'])->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
 
 
 
 //Protected routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'cors']], function () {
     //User
     Route::get('/users/{user}', [App\Http\Controllers\AuthController::class, 'showUser']);
     Route::put('/users/{user}', [App\Http\Controllers\AuthController::class, 'editProfile']);
@@ -41,11 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'pv-installations' => 'pVInstallation',
         'counter-readings' => 'counterReading'
     ]);
-    
+
 
     Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });

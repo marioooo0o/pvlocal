@@ -13,17 +13,13 @@ import LoginRegisterCard from './components/ui/LoginRegister.vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import '@fortawesome/fontawesome-free/js/all.js'
-// import Chartkick from 'vue-chartkick';
-// import Chart from 'chartkick/chart.js';
 
 
 const app = createApp(App);
 
-
 app.use(router);
 app.use(store);
 app.use(VueAxios, axios);
-// app.use(Chartkick.use(Chart))
 
 
 app.component('base-card', BaseCard);

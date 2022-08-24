@@ -2,8 +2,6 @@
   <div class="container">
     <div class="left">
       <div class="left-top">
-         
-        <!-- <img :src="logo" width="46px" height="50px" alt="Logo"> -->
         <span><i class="fa-solid fa-bolt"  width="46px" height="50px" />PV Analyzer</span>
       </div>
       <div class="logo">
@@ -84,6 +82,7 @@ span{
   /* padding-bottom: 37px; */
 }
 .logo h1 {
+  text-align: center;
   color: #ffffff;
   font-size: 48px;
 }
@@ -104,6 +103,7 @@ span{
     flex-direction: column;
   }
   .left {
+    font-size: smaller;
     width: 100%;
   }
   .right {
