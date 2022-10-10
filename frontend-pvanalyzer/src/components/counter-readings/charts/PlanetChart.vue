@@ -1,5 +1,6 @@
 <template>
-  <div style="text-align: center">
+    <div style="text-align: center">
+  <!-- <div class="chart-box" style="position: relative; width: 60vw;"> -->
     <canvas id="planet-chart" v-show="!loading"></canvas>
   </div>
 </template>
@@ -23,15 +24,6 @@ export default {
           labels: [],
           datasets: [
             {
-              label: "Do odzyskania",
-              fill: false,
-              data: [],
-              // backgroundColor: "rgba(81, 52,132,.5)",
-              borderColor: "#21b784",
-              borderWidth: 1.5,
-              lineTension: 0.15,
-            },
-            {
               label: "Pobrana",
               fill: false,
               data: [],
@@ -49,10 +41,20 @@ export default {
               borderWidth: 1.5,
               lineTension: 0.15,
             },
+            {
+              label: "Do odzyskania",
+              fill: false,
+              data: [],
+              // backgroundColor: "rgba(81, 52,132,.5)",
+              borderColor: "#21b784",
+              borderWidth: 1.5,
+              lineTension: 0.15,
+            },
           ],
         },
         options: {
           responsive: true,
+          maintainAspectRAtio: false,
           legend: {
             labels: {
               fontSize: 16,
@@ -106,9 +108,10 @@ export default {
       // this.reactive = this.allReactive.slice(length - 5);
       const length = this.recover.length;
       this.lineChart.data.labels = this.labels.slice(length - 10);
-      this.lineChart.data.datasets[0].data = this.recover.slice(length - 10);
-      this.lineChart.data.datasets[1].data = this.active.slice(length - 10);
-      this.lineChart.data.datasets[2].data = this.reactive.slice(length - 10);
+      this.lineChart.data.datasets[0].data = this.active.slice(length - 10);
+      this.lineChart.data.datasets[1].data = this.reactive.slice(length - 10);
+      this.lineChart.data.datasets[2].data = this.recover.slice(length - 10);
+      
       this.loading = false;
     },
   },
@@ -118,5 +121,20 @@ export default {
 <style scoped>
 p {
   background-color: #292828;
+}
+.chart-box{
+  text-align: center; 
+  position: relative;
+}
+@media screen and (max-width: 700px) { 
+     .chart-box{
+      width: 400px !important;
+    } 
+}
+@media screen and (max-width: 500px) { 
+     .chart-box
+    {
+       width: 300px !important; 
+    } 
 }
 </style>

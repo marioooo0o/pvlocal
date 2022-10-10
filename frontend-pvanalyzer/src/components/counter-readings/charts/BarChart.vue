@@ -1,5 +1,6 @@
 <template>
-  <div class="chart-container" style="text-align: center" >
+  <div class="chart-container" style="text-align: center">
+  <!-- <div class="chart-box" style="position: relative; width: 60vw;"> -->
     <canvas id="bar-chart" v-show="!loading" ></canvas>
   </div>
 </template>
@@ -23,15 +24,6 @@ export default {
           labels: [],
           datasets: [
             {
-              label: "Do odzyskania",
-              fill: false,
-              data: [],
-              backgroundColor: "rgba(33, 183, 132,.5)",
-              borderColor: "#21b784",
-              borderWidth: 1.5,
-              lineTension: 0.15,
-            },
-            {
               label: "Pobrana",
               fill: false,
               data: [],
@@ -46,6 +38,15 @@ export default {
               data: [],
               backgroundColor: "rgba(0, 0, 0,.5)",
               borderColor: "#292828",
+              borderWidth: 1.5,
+              lineTension: 0.15,
+            },
+            {
+              label: "Do odzyskania",
+              fill: false,
+              data: [],
+              backgroundColor: "rgba(33, 183, 132,.5)",
+              borderColor: "#21b784",
               borderWidth: 1.5,
               lineTension: 0.15,
             },
@@ -144,9 +145,10 @@ export default {
     },
     getDataToChart() {
       this.lineChart.data.labels = this.labels;
-      this.lineChart.data.datasets[0].data = this.recover;
-      this.lineChart.data.datasets[1].data = this.active;
-      this.lineChart.data.datasets[2].data = this.reactive;
+      this.lineChart.data.datasets[0].data = this.active;
+      this.lineChart.data.datasets[1].data = this.reactive;
+      this.lineChart.data.datasets[2].data = this.recover;
+      
       this.loading = false;
     },
   },
@@ -154,13 +156,25 @@ export default {
 </script>
 
 <style scoped>
-.chart-container{
-  text-align: center;
-  /* height: 500px; */
-  width: 500px;
-}
 p {
   background-color: #292828;
   /* color: rgb(33, 183, 132)); */
+}
+.chart-box{
+  text-align: center;
+  position: relative;
+}
+@media screen and (max-width: 700px) { 
+     .chart-box
+    {
+       width: 400px !important; 
+    } 
+}
+
+@media screen and (max-width: 500px) { 
+     .chart-box
+    {
+       width: 300px !important; 
+    } 
 }
 </style>

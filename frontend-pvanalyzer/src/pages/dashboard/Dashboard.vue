@@ -1,11 +1,15 @@
 <template>
+  <Sidebar />
   <div
     class="container"
     v-if="!isLoading"
     :style="{ marginLeft: marginLeftComputed }"
   >
-    <line-chart-card :actualBalance="actualBalance"></line-chart-card>
-    <bar-chart-card :balance="balance"></bar-chart-card>
+    <div v-if="hasReadings" class="charts">
+      <line-chart-card :actualBalance="actualBalance"></line-chart-card>
+      <bar-chart-card :balance="balance"></bar-chart-card>
+    </div>
+    <!-- <last-readings-table class="table" -->
     <last-readings-table
       :tableData="tableData"
     ></last-readings-table>
@@ -26,13 +30,12 @@
 <script>
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-
 import LastReadingsTable from "../../components/counter-readings/ReadingsListContainer.vue";
 import LineChartCard from "../../components/counter-readings/charts/LineChartCard.vue";
 import BarChartCard from "../../components/counter-readings/charts/BarChardCard.vue";
-import { sidebarWidth } from "../../components/sidebar/state.js";
+import Sidebar from "../../components/sidebar/Sidebar.vue";
 export default {
-  components: { LineChartCard, BarChartCard, LastReadingsTable, Loading },
+  components: { LineChartCard, BarChartCard, LastReadingsTable, Loading, Sidebar},
   data() {
     return {
       allLabels: [], //wszystkie daty z bazy
@@ -52,14 +55,18 @@ export default {
   },
   computed: {
     marginLeftComputed() {
-      if (sidebarWidth.value === "180px") {
-        return `200px`;
-      } else {
-        return `110px`;
-      }
+      return this.$store.getters['sidebarIsCollapsed'] ? `54px` : `180px`;
+      // if (sidebarWidth.value === "180px") {
+      //   return `200px`;
+      // } else {
+      //   return `110px`;
+      // }
     },
     allReadings() {
       return this.$store.getters["readings/counterReadings"];
+    },
+    hasReadings(){
+      return (this.$store.getters["readings/counterReadings"].length)?true:false;
     },
     powerInstallation() {
       return this.$store.getters["pVInstallation/powerInstallation"];
@@ -71,7 +78,7 @@ export default {
       return this.monthlyData[this.monthlyData.length - 1].balance;
     },
     actualBalance() {
-      return this.allReadings[this.allReadings.length - 1].balance;
+      return this.monthlyData[this.monthlyData.length - 1].balance;
     },
     tableData() {
       return this.allReadings.slice(-5);
@@ -273,11 +280,35 @@ export default {
   opacity: 0;
 }
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+  display: flex; 
+  justify-content: center; 
+  gap: 25px; 
+  flex-wrap: wrap; 
   padding: 1rem 18px;
+}
+.charts{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 1260px) {
+    .container{
+      flex-direction: column;
+      align-items: center;
+    }
+    .charts{
+      flex-direction: column;
+    }
+}
+@media screen and (max-width: 500px) {
+    .charts{
+      width: 300px;
+    }
 }
 </style>

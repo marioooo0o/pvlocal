@@ -1,4 +1,5 @@
 <template>
+  <sidebar />
   <base-card>
     <div class="container">
       <h1>Twoja instalacja</h1>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {

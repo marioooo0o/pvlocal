@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   async addNewReading(context, payload) {
-    const id = context.rootGetters['pVInstallation/installationId'];
+    const id = context.rootGetters["pVInstallation/installationId"];
     const token = localStorage.getItem("token");
 
     const data = {
@@ -11,7 +11,7 @@ export default {
       reactive_energy_consumed: payload.reactive,
     };
 
-    const url = `http://127.0.0.1:8000/api/pv-installations/${id}/counter-readings`;
+    const url = `pv-installations/${id}/counter-readings`;
 
     const response = await axios
       .post(url, data, {
@@ -28,7 +28,7 @@ export default {
           activeEnergyConsumed: data.active_energy_consumed,
           reactiveEnergyConsumed: data.reactive_energy_consumed,
           energyToRecover: data.energy_to_recover,
-          balance: data.balance,
+          balance: data.balance.toFixed(2),
           month: data.month,
         };
         context.commit("addReading", counterReading);
@@ -47,14 +47,14 @@ export default {
 
     return response;
   },
-  async loadCounterReadings({ commit, getters,  rootGetters }) {
-    if (!getters.shouldUpdate){
+  async loadCounterReadings({ commit, getters, rootGetters }) {
+    if (!getters.shouldUpdate) {
       return;
     }
-    const id = rootGetters['pVInstallation/installationId'];
+    const id = rootGetters["pVInstallation/installationId"];
     const token = localStorage.getItem("token");
 
-    const url = `http://127.0.0.1:8000/api/pv-installations/${id}/counter-readings`;
+    const url = `pv-installations/${id}/counter-readings`;
 
     await axios
       .get(url, {
@@ -81,7 +81,7 @@ export default {
         }
 
         commit("setReadings", counterReadings);
-        commit('setFetchTimestamp');
+        commit("setFetchTimestamp");
       })
       .catch((error) => {
         console.error(error);

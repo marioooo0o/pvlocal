@@ -1,4 +1,5 @@
 <template>
+  <sidebar />
   <base-card>
     <div class="containter">
       <div class="header">
