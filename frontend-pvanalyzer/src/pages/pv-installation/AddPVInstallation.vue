@@ -1,4 +1,5 @@
 <template>
+  <sidebar />
   <base-card>
   <h1>Dodaj instalacje</h1>
   <form @submit.prevent="submitForm">

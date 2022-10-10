@@ -1,22 +1,18 @@
 <template>
-  <div v-if="isLoggedIn">
+  <!-- <div v-if="isLoggedIn">
     <Sidebar />
-    <div :style="{ 'margin-left': sidebarWidth }"></div>
-  </div>
+    <div :style="{ 'margin-left': marginLeft }"></div>
+  </div> -->
   <router-view>
   </router-view>
 </template>
 
 <script>
-import Sidebar from "./components/sidebar/Sidebar.vue";
-import { sidebarWidth } from "./components/sidebar/state.js";
+// import Sidebar from "./components/sidebar/Sidebar.vue";
 
 export default {
   name: "App",
-  components: { Sidebar },
-  setup() {
-    return { sidebarWidth };
-  },
+  // components: { Sidebar },
   data() {
     return {};
   },
@@ -24,6 +20,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
     },
+    marginLeft(){
+      return this.$store.getters['sidebarIsCollapsed'] ? `54px` : `180px`;
+    }
     
   },
   methods: {},

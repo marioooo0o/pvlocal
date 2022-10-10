@@ -12,6 +12,7 @@ const store = createStore({
         desc: '',
         title: '',
       },
+      sidebarIsCollapsed: false
     };
   },
   mutations: {
@@ -27,6 +28,9 @@ const store = createStore({
     },
     clearSuccessMessage(state){
       state.successMessage = [];
+    },
+    changeSidebarCollapse(state){
+      state.sidebarIsCollapsed = !state.sidebarIsCollapsed;
     }
   },
   getters: {
@@ -35,6 +39,9 @@ const store = createStore({
     },
     successMessage(state){
       return state.successMessage;
+    },
+    sidebarIsCollapsed(state){
+      return state.sidebarIsCollapsed;
     }
   },
   modules: {

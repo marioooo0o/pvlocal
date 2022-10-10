@@ -1,4 +1,5 @@
 <template>
+  <Sidebar />
   <div
     class="container"
     v-if="!isLoading"
@@ -8,6 +9,7 @@
       <line-chart-card :actualBalance="actualBalance"></line-chart-card>
       <bar-chart-card :balance="balance"></bar-chart-card>
     </div>
+    <!-- <last-readings-table class="table" -->
     <last-readings-table
       :tableData="tableData"
     ></last-readings-table>
@@ -28,13 +30,12 @@
 <script>
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-
 import LastReadingsTable from "../../components/counter-readings/ReadingsListContainer.vue";
 import LineChartCard from "../../components/counter-readings/charts/LineChartCard.vue";
 import BarChartCard from "../../components/counter-readings/charts/BarChardCard.vue";
-import { sidebarWidth } from "../../components/sidebar/state.js";
+import Sidebar from "../../components/sidebar/Sidebar.vue";
 export default {
-  components: { LineChartCard, BarChartCard, LastReadingsTable, Loading },
+  components: { LineChartCard, BarChartCard, LastReadingsTable, Loading, Sidebar},
   data() {
     return {
       allLabels: [], //wszystkie daty z bazy
@@ -54,11 +55,12 @@ export default {
   },
   computed: {
     marginLeftComputed() {
-      if (sidebarWidth.value === "180px") {
-        return `200px`;
-      } else {
-        return `110px`;
-      }
+      return this.$store.getters['sidebarIsCollapsed'] ? `54px` : `180px`;
+      // if (sidebarWidth.value === "180px") {
+      //   return `200px`;
+      // } else {
+      //   return `110px`;
+      // }
     },
     allReadings() {
       return this.$store.getters["readings/counterReadings"];
@@ -286,15 +288,27 @@ export default {
 }
 .charts{
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 25px;
 }
-@media screen and (max-width: 650px) {
+.table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 1260px) {
     .container{
-      display: flex;
       flex-direction: column;
+      align-items: center;
     }
     .charts{
       flex-direction: column;
+    }
+}
+@media screen and (max-width: 500px) {
+    .charts{
+      width: 300px;
     }
 }
 </style>

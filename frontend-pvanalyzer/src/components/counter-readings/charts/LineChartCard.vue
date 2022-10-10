@@ -32,7 +32,7 @@ export default {
   min-width: 445px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 25px;
-
+  height: 370px;
 }
 .header {
   display: flex;
@@ -55,4 +55,9 @@ export default {
 .right-block span span {
   margin-left: 5px;
 }
+/* @media screen and (min-width:1261px) {
+  .container{
+  /* min-width: 445px; 
+}
+} */
 </style>

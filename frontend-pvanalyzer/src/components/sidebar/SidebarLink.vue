@@ -18,7 +18,6 @@
 <script>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { collapsed } from "./state";
 
 export default {
   props: {
@@ -30,11 +29,14 @@ export default {
       type: String,
       required: true,
     },
+    collapsed:{
+      type: Boolean,
+    }
   },
   setup(props) {
     const route = useRoute();
     const isActive = computed(() => route.path === props.to);
-    return { isActive, collapsed };
+    return { isActive, };
   },
 };
 </script>

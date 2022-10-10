@@ -1,5 +1,6 @@
 <template>
-  <div class="sidebar" :style="{ maxWidth: sidebarWidth }">
+    <!-- <div class="sidebar" :style="{ maxWidth: sidebarWidth }"> -->
+  <div class="sidebar" :class="sidebarWidth">
     <router-link to="/dashboard">
       <h1>
         <i class="fa-solid fa-bolt" />
@@ -7,15 +8,10 @@
         <span v-else style="margin-left: 10px">PVAnalyzer</span>
       </h1></router-link
     >
-
-    <SidebarLink v-if="hasInstallation" to="/dashboard" icon="fas fa-home-alt">Home</SidebarLink>
-    <SidebarLink  v-if="hasInstallation" to="/pv-installation" icon="fa-solid fa-solar-panel"
-      >Moja instalacja</SidebarLink
-    >
-    <SidebarLink  to="/profile" icon="fas fa-user">{{ userName }}</SidebarLink>
-    <SidebarLink @click="logout" icon="fa-solid fa-arrow-right-from-bracket"
-      >Wyloguj</SidebarLink
-    >
+      <SidebarLink v-if="hasInstallation" to="/dashboard" icon="fas fa-home-alt" :collapsed="collapsed">Home</SidebarLink>
+      <SidebarLink v-if="hasInstallation" to="/pv-installation" icon="fa-solid fa-solar-panel" :collapsed="collapsed">Moja instalacja</SidebarLink>
+      <SidebarLink to="/profile" icon="fas fa-user" :collapsed="collapsed">{{ userName }}</SidebarLink>
+      <SidebarLink @click="logout" icon="fa-solid fa-arrow-right-from-bracket" :collapsed="collapsed">Wyloguj</SidebarLink>
     <span
       class="collapse-icon"
       :class="{ 'rotate-180': collapsed }"
@@ -27,31 +23,44 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import SidebarLink from "./SidebarLink.vue";
-import { collapsed, toggleSidebar, sidebarWidth } from "./state.js";
 import logo from "../../assets/logo.png";
 export default {
   props: {},
   components: { SidebarLink },
   setup() {
-    return { collapsed, toggleSidebar, sidebarWidth, logo };
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    userName() {
-      return this.$store.getters.userName;
-    },
-    hasInstallation(){
-      return this.$store.getters["pVInstallation/hasInstallation"];
-    },
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch("logout");
-      this.$router.replace("/login");
-    },
+    const route = useRoute();
+    const store = useStore();
+    const collapsed = ref(false);
+    const toggleSidebar = () => {
+      (collapsed.value = !collapsed.value)
+      store.commit('changeSidebarCollapse');
+    }
+    const sidebarWidth = computed(()=>{
+      return collapsed.value ? 'sidebar-width-collapsed' : 'sidebar-width'
+    })
+
+    const userName = computed(()=> {
+      return store.getters.userName;
+    });
+    const hasInstallation = computed(()=> {
+      return store.getters["pVInstallation/hasInstallation"];
+    });
+
+    function logout(){
+      store.dispatch("logout");
+      route.replace('/login');
+    }
+    return {  collapsed, 
+              toggleSidebar, 
+              logo, 
+              sidebarWidth,
+              userName, 
+              hasInstallation, 
+              logout};
   },
 };
 </script>
@@ -92,6 +101,12 @@ a {
   overflow: hidden;
   white-space: nowrap;
 }
+.sidebar-width-collapsed{
+  max-width: 38px;
+}
+.sidebar-width{
+  max-width: 180px;
+}
 
 .collapse-icon {
   position: absolute;
@@ -106,10 +121,5 @@ a {
 .rotate-180 {
   transform: rotate(180deg);
   transition: 0.2s linear;
-}
-  @media screen and (max-width: 650px) {
-    .sidebar{
-      max-width: 38px;
-    }
 }
 </style>

@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   async editProfile(context, payload) {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    const url = `http://192.168.1.14:8000/api/users/${userId}`;
+    const url = `users/${userId}`;
     let data = {
       name: payload.name,
       email: payload.email,
@@ -34,21 +34,21 @@ export default {
             statusText: error.response.statusText,
           };
           return errors;
-        }else {
+        } else {
           context.commit("setErrors", {
             errors: error.response.statusText,
           });
         }
       });
 
-      return response;
+    return response;
   },
 
   async changePassword(context, payload) {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    let url = `http://192.168.1.14:8000/api/users/${userId}/change-password`;
+    let url = `users/${userId}/change-password`;
 
     let data = {
       password: payload.password,
@@ -71,7 +71,7 @@ export default {
       });
   },
   async register(context, payload) {
-    const url = "http://192.168.1.14:8000/api/register";
+    const url = "register";
 
     const data = {
       name: payload.name,
@@ -114,7 +114,7 @@ export default {
     return response;
   },
   async login(context, payload) {
-    const url = "http://192.168.1.14:8000/api/login";
+    const url = "login";
 
     const data = {
       email: payload.email,
@@ -128,6 +128,7 @@ export default {
         },
       })
       .then((res) => {
+        console.log('res', res);
         const responseData = res.data;
         localStorage.setItem("token", responseData.token);
         localStorage.setItem("userId", responseData.user.id);
@@ -140,6 +141,7 @@ export default {
         return res;
       })
       .catch((error) => {
+        console.log('err', error);
         const responseError = error.response;
         if (responseError.status == 401) {
           const errors = {

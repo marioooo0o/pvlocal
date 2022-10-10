@@ -39,6 +39,8 @@ export default {
   flex-direction: column;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 25px;
+  height: 370px;
+  min-width: 400px;
 }
 
 .header {
