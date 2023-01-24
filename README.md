@@ -28,6 +28,11 @@ List the ready features:
 - Easy-to-read charts and reports of the above data
 
 ## Screenshots
+![Ekran logowania](./img/login.png)
+![Dashboard](./img/dashboard.png)
+![Ekran instalacji](./img/installationInfo.png)
+![Profil użytkownika](./img/userInfo.png)
+![Ekran rejestracji](./img/register.png)
 
 ## Setup
 
